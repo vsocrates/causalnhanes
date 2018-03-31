@@ -4,12 +4,13 @@
 import os
 import xport
 
-import numpy as np 
+import numpy as np
+import pandas as pd
 
 
-def xpt_to_np(fp):
+def xpt_to_df(fp):
     """
-    Convert the xpt file to a np.ndarray.
+    Convert the xpt file to a pd.DataFrame.
 
     Params:
     -------
@@ -18,21 +19,20 @@ def xpt_to_np(fp):
 
     Returns:
     --------
-    X: np.ndarray
-        The data converted to a numpy format for easier computation.
+    df: pd.DataFrame
+        The data converted to a dataframe type for easier computations.
     """
     if not os.path.exists(fp):
         raise ValueError('The filepath {0:s} does not exist! Ensure you are using the right path!'.format(os.path.abspath(fp)))
+    # Check if the file type is the one we want
+    elif fp[-3:].lower() != 'xpt':
+        raise ValueError('The filepath provided is not a .xpt file!')
+    # Convert to a numpy array
     else:
-        # Check if the file type is the one we want
-        if fp[-3:].lower() != 'xpt':
-            raise ValueError('The file provided is not a .xpt file!')
-        # Convert to a numpy array
-        else:
-            with open(fp, 'rb') as f:
-                X = xport.to_numpy(f)    
+        with open(fp, 'rb') as f:
+            df = xport.to_dataframe(f)
 
-    return X
+    return df
 
 
 if __name__ == "__main__":
@@ -41,8 +41,8 @@ if __name__ == "__main__":
     dname = os.path.dirname(abspath)
     os.chdir(dname)
 
-    X = xpt_to_np('../data/DEMO_I.XPT')
-    print(X.shape)
+    df = xpt_to_df('../data/DEMO_I.XPT')
+    print(df.head())
     # with open('../data/DEMO_I.xpt', 'rb') as f:
     #     reader = xport.Reader(f)
     #     print(reader.fields)
