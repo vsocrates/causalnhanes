@@ -41,5 +41,5 @@ if __name__ == "__main__":
     dname = os.path.dirname(abspath)
     os.chdir(dname)
 
-    df = xpt_to_df('../data/DEMO_I.XPT')
+    df = xpt_to_df('../data/nhanes/2015_2016/demographics/DEMO_I.XPT')
     print(df.head())
