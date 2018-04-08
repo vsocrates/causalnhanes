@@ -24,10 +24,10 @@ def xpt_to_df(fp):
     """
     if not os.path.exists(fp):
         raise ValueError('The filepath {0:s} does not exist! Ensure you are using the right path!'.format(os.path.abspath(fp)))
-    # Check if the file type is the one we want
+    # Check filepath type
     elif fp[-3:].lower() != 'xpt':
         raise ValueError('The filepath provided is not a .xpt file!')
-    # Convert to a numpy array
+    # Convert to a DataFrame object
     else:
         with open(fp, 'rb') as f:
             df = xport.to_dataframe(f)
@@ -43,8 +43,3 @@ if __name__ == "__main__":
 
     df = xpt_to_df('../data/DEMO_I.XPT')
     print(df.head())
-    # with open('../data/DEMO_I.xpt', 'rb') as f:
-    #     reader = xport.Reader(f)
-    #     print(reader.fields)
-    #     for row in xport.Reader(f):
-    #         print(row)
