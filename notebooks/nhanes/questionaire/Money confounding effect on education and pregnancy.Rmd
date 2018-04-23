@@ -1,0 +1,49 @@
+---
+title: "Money confounding effect on education and pregnancy"
+output: html_notebook
+---
+
+
+```{r}
+setwd("~/GitHub/causalnhanes/data/nhanes/2015_2016/questionaires")
+
+#packages necessary
+library(dplyr)
+library(SASxport)
+
+#reading data
+RHQ = read.xport(file="RHQ_I.xpt")
+demo = read.xport(file = "DEMO_I.xpt")
+
+#filtering pregnancy data
+RHQ = RHQ %>% filter(RHQ131 < 7)
+RHQ = RHQ %>% filter(RHD180 < 777)
+
+#filtering demographic data
+demo = demo %>% filter(DMDEDUC2 < 7)
+demo = demo %>% filter(INDFMIN2 < 77)
+demo = demo %>% filter(INDFMIN2 != 13)
+demo = demo %>% filter(INDFMIN2 != 12)
+
+#merging our data
+ourSet = merge(demo, RHQ, type = "inner")
+
+#removing unused columns
+set = ourSet[1]
+set[2] = ourSet["RHD180"]
+set[3] = ourSet["INDFMIN2"]
+age = vector(mode ="numeric", length = 15)
+wealth = vector(mode = "numeric", length = 15)
+for(i in 1:15) {
+  age[i] = colMeans(filter(set, INDFMIN2 == i))["RHD180"]
+}
+for(i in 1:5){
+  wealth[i] = 5000*i
+}
+for(i in 6:10){
+  wealth[i] = 25000 + 10000*(i -5)
+}
+wealth[14] = 100000
+wealth[15] = 110000
+plot(wealth, age, xlab = "Family wealth (USD)")
+```
