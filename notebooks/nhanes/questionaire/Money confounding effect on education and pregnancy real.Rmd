@@ -51,3 +51,4 @@ plot(wealth, age, xlab = "Family wealth (USD)")
 We see a fascinating plot of increasing age of first live birth with increasing family wealth. Note that the last data point accounts for all individuals whose family income was greater than \$100,000 USD. At this point we denote individuals with family income greater than or equal to \$45,000 as High Income Individuals.
 ```{r}
 HII = set %>% filter(INDFMIN2 < 8)
+LII = set %>% filter(INDFMIN2 > 7)
