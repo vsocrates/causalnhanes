@@ -77,8 +77,8 @@ probs[2] = nrow(filter(PS, RHD180<20))/nrow(PD)
 probs[3] = nrow(filter(RD, RHD180<20))/nrow(PD)
 probs[4] = nrow(filter(RS, RHD180<20))/nrow(PD)
 
-RichCRD = probs[4] - probs[3]
-poorCRD = probs[2] - probs[1]
+RichCRD = probs[4]/probs[3]
+poorCRD = probs[2]/probs[1]
 
 ```
 For low income individuals, people with at least some college education had a teenage pregnancy rate of 18.3%, compared to 49.2% for those with less than some college education. So we can deterime the causal risk difference is -.308 within the low income strata. In a similar manner, we calculate a CRD of .0185 for the wealthy strata.
