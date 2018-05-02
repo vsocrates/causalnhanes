@@ -20,7 +20,7 @@ RHQ = RHQ %>% filter(RHQ131 < 7)
 RHQ = RHQ %>% filter(RHD180 < 777)
 
 #filtering demographic data
-demo = demo %>% filter(DMDEDUC2 < 7)
+demo = demo %>% filter(d < 7)
 demo = demo %>% filter(INDFMIN2 < 77)
 demo = demo %>% filter(INDFMIN2 != 13)
 demo = demo %>% filter(INDFMIN2 != 12)
@@ -31,8 +31,8 @@ ourSet = merge(demo, RHQ, type = "inner")
 #removing unused columns
 set = ourSet[1]
 set[2] = ourSet["RHD180"]
-set[3] = ourSet["INDFMIN2"]
-set[4] = ourSet["DMDEDUC2"]
+set[3] = ourSet["INDFMIN2"] # annual family income
+set[4] = ourSet["DMDEDUC2"] # education level 20+
 age = vector(mode ="numeric", length = 15)
 wealth = vector(mode = "numeric", length = 15)
 for(i in 1:15) {
